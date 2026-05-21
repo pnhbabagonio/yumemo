@@ -1,13 +1,14 @@
 import { motion } from "framer-motion";
+import { Link } from "@tanstack/react-router";
 import { Home, CalendarDays, ListChecks, Timer, Trophy, Settings, Sparkles } from "lucide-react";
 
 const items = [
-  { icon: Home, label: "Dashboard", active: true },
-  { icon: ListChecks, label: "Planner" },
-  { icon: CalendarDays, label: "Calendar" },
-  { icon: Timer, label: "Focus" },
-  { icon: Trophy, label: "Rewards" },
-  { icon: Settings, label: "Settings" },
+  { icon: Home, label: "Dashboard", to: "/" as const },
+  { icon: ListChecks, label: "Planner", to: "/planner" as const },
+  { icon: CalendarDays, label: "Calendar", to: "/calendar" as const },
+  { icon: Timer, label: "Focus", to: "/focus" as const },
+  { icon: Trophy, label: "Rewards", to: "/rewards" as const },
+  { icon: Settings, label: "Settings", to: "/settings" as const },
 ];
 
 export function Sidebar() {
@@ -25,21 +26,21 @@ export function Sidebar() {
 
       <nav className="flex flex-col gap-1 mt-4">
         {items.map((it, i) => (
-          <motion.button
+          <motion.div
             key={it.label}
-            whileHover={{ x: 4 }}
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: i * 0.05 }}
-            className={`flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-medium transition-colors ${
-              it.active
-                ? "bg-card text-foreground shadow-soft"
-                : "text-muted-foreground hover:bg-card/60 hover:text-foreground"
-            }`}
           >
-            <it.icon className="w-[18px] h-[18px]" />
-            {it.label}
-          </motion.button>
+            <Link
+              to={it.to}
+              activeOptions={{ exact: true }}
+              className="flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-medium transition-colors text-muted-foreground hover:bg-card/60 hover:text-foreground data-[status=active]:bg-card data-[status=active]:text-foreground data-[status=active]:shadow-soft"
+            >
+              <it.icon className="w-[18px] h-[18px]" />
+              {it.label}
+            </Link>
+          </motion.div>
         ))}
       </nav>
 
