@@ -9,12 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as RewardsRouteImport } from './routes/rewards'
 import { Route as PlannerRouteImport } from './routes/planner'
 import { Route as FocusRouteImport } from './routes/focus'
 import { Route as CalendarRouteImport } from './routes/calendar'
 import { Route as IndexRouteImport } from './routes/index'
 
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RewardsRoute = RewardsRouteImport.update({
   id: '/rewards',
   path: '/rewards',
@@ -47,6 +53,7 @@ export interface FileRoutesByFullPath {
   '/focus': typeof FocusRoute
   '/planner': typeof PlannerRoute
   '/rewards': typeof RewardsRoute
+  '/settings': typeof SettingsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +61,7 @@ export interface FileRoutesByTo {
   '/focus': typeof FocusRoute
   '/planner': typeof PlannerRoute
   '/rewards': typeof RewardsRoute
+  '/settings': typeof SettingsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,13 +70,27 @@ export interface FileRoutesById {
   '/focus': typeof FocusRoute
   '/planner': typeof PlannerRoute
   '/rewards': typeof RewardsRoute
+  '/settings': typeof SettingsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/calendar' | '/focus' | '/planner' | '/rewards'
+  fullPaths:
+    | '/'
+    | '/calendar'
+    | '/focus'
+    | '/planner'
+    | '/rewards'
+    | '/settings'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/calendar' | '/focus' | '/planner' | '/rewards'
-  id: '__root__' | '/' | '/calendar' | '/focus' | '/planner' | '/rewards'
+  to: '/' | '/calendar' | '/focus' | '/planner' | '/rewards' | '/settings'
+  id:
+    | '__root__'
+    | '/'
+    | '/calendar'
+    | '/focus'
+    | '/planner'
+    | '/rewards'
+    | '/settings'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -77,10 +99,18 @@ export interface RootRouteChildren {
   FocusRoute: typeof FocusRoute
   PlannerRoute: typeof PlannerRoute
   RewardsRoute: typeof RewardsRoute
+  SettingsRoute: typeof SettingsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/rewards': {
       id: '/rewards'
       path: '/rewards'
@@ -125,6 +155,7 @@ const rootRouteChildren: RootRouteChildren = {
   FocusRoute: FocusRoute,
   PlannerRoute: PlannerRoute,
   RewardsRoute: RewardsRoute,
+  SettingsRoute: SettingsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
