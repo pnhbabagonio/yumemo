@@ -1,7 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&display=swap");
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&display=swap");
 
 @custom-variant dark (&:is(.dark *));
 
@@ -48,7 +48,7 @@
   --popover-foreground: oklch(0.32 0.06 320);
   --primary: oklch(0.78 0.13 350);
   --primary-foreground: oklch(0.99 0.005 350);
-  --primary-glow: oklch(0.86 0.10 350);
+  --primary-glow: oklch(0.86 0.1 350);
   --secondary: oklch(0.82 0.09 295);
   --secondary-foreground: oklch(0.3 0.08 295);
   --muted: oklch(0.96 0.015 320);
@@ -63,7 +63,12 @@
   --border: oklch(0.92 0.02 320);
   --input: oklch(0.94 0.02 320);
   --ring: oklch(0.78 0.13 350);
-  --gradient-cozy: linear-gradient(135deg, oklch(0.95 0.04 350), oklch(0.95 0.04 295) 50%, oklch(0.95 0.04 200));
+  --gradient-cozy: linear-gradient(
+    135deg,
+    oklch(0.95 0.04 350),
+    oklch(0.95 0.04 295) 50%,
+    oklch(0.95 0.04 200)
+  );
   --gradient-primary: linear-gradient(135deg, oklch(0.82 0.12 350), oklch(0.82 0.12 295));
   --shadow-soft: 0 8px 30px -8px oklch(0.78 0.13 350 / 0.25);
   --shadow-float: 0 20px 50px -20px oklch(0.6 0.15 295 / 0.35);
@@ -93,7 +98,12 @@
   --border: oklch(1 0 0 / 12%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.82 0.12 350);
-  --gradient-cozy: linear-gradient(135deg, oklch(0.26 0.05 350), oklch(0.26 0.05 295) 50%, oklch(0.26 0.05 240));
+  --gradient-cozy: linear-gradient(
+    135deg,
+    oklch(0.26 0.05 350),
+    oklch(0.26 0.05 295) 50%,
+    oklch(0.26 0.05 240)
+  );
   --gradient-primary: linear-gradient(135deg, oklch(0.7 0.15 350), oklch(0.6 0.15 295));
   --shadow-soft: 0 8px 30px -8px oklch(0.2 0.05 300 / 0.5);
   --shadow-float: 0 20px 50px -20px oklch(0.1 0.05 300 / 0.6);
@@ -110,7 +120,10 @@
     font-family: var(--font-sans);
     min-height: 100vh;
   }
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     font-family: var(--font-display);
     letter-spacing: -0.01em;
   }
@@ -129,17 +142,37 @@
     background-clip: text;
     color: transparent;
   }
-  .bg-gradient-primary { background: var(--gradient-primary); }
-  .shadow-float { box-shadow: var(--shadow-float); }
-  .shadow-soft { box-shadow: var(--shadow-soft); }
-  .animate-float { animation: float 6s ease-in-out infinite; }
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-12px); }
+  .bg-gradient-primary {
+    background: var(--gradient-primary);
   }
-  .animate-pulse-soft { animation: pulseSoft 3s ease-in-out infinite; }
+  .shadow-float {
+    box-shadow: var(--shadow-float);
+  }
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-12px);
+    }
+  }
+  .animate-pulse-soft {
+    animation: pulseSoft 3s ease-in-out infinite;
+  }
   @keyframes pulseSoft {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.7; }
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
   }
 }

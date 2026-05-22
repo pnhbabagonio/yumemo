@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
 import { Link } from "@tanstack/react-router";
-import { Home, CalendarDays, ListChecks, Timer, Trophy, Settings } from "lucide-react";
+import { CalendarDays, Home, ListChecks, Settings, Timer, Trophy } from "lucide-react";
 import logoLight from "@/assets/yumemo-logo.png";
 import logoDark from "@/assets/yumemo-logo-dark.png";
+import { useStreakStore } from "@/stores/yumemo";
 
 const items = [
   { icon: Home, label: "Dashboard", to: "/" as const },
@@ -14,6 +15,8 @@ const items = [
 ];
 
 export function Sidebar() {
+  const streak = useStreakStore((state) => state.getDisplayStreak());
+
   return (
     <aside className="hidden lg:flex flex-col gap-2 w-64 p-5 sticky top-0 h-screen">
       <div className="flex items-center gap-2 px-2 py-4">
@@ -21,7 +24,7 @@ export function Sidebar() {
         <img src={logoDark} alt="YuMemo" className="w-11 h-11 hidden dark:block" />
         <div>
           <h1 className="text-xl font-bold text-gradient leading-none">YuMemo</h1>
-          <p className="text-[11px] text-muted-foreground mt-1">plan smarter ෆ</p>
+          <p className="text-[11px] text-muted-foreground mt-1">plan smarter</p>
         </div>
       </div>
 
@@ -47,7 +50,7 @@ export function Sidebar() {
 
       <div className="mt-auto glass-card rounded-3xl p-4 text-center">
         <p className="text-xs text-muted-foreground">Daily streak</p>
-        <p className="text-2xl font-bold text-gradient mt-1">7 days 🔥</p>
+        <p className="text-2xl font-bold text-gradient mt-1">{streak} days</p>
         <p className="text-[11px] text-muted-foreground mt-2">Keep it going, Yu!</p>
       </div>
     </aside>

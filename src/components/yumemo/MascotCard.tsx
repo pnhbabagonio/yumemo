@@ -1,14 +1,30 @@
 import { motion } from "framer-motion";
 import mascot from "@/assets/mascot.png";
+import { useMascotStore, useXpStore } from "@/stores/yumemo";
 
-const quotes = [
-  "you're doing great, take a breath~",
-  "small steps still finish big books ෆ",
-  "study warm, study soft",
-];
+const quotes = {
+  idle: "You're doing great. Take a breath.",
+  happy: "That task sparkle looked lovely.",
+  sleepy: "Tiny rest counts too.",
+  excited: "A milestone! I am cheering very loudly inside.",
+  studying: "Focus mode on. I will keep watch.",
+};
+
+const accessoryLabel = {
+  ribbon: "Ribbon",
+  glasses: "Glasses",
+  scarf: "Scarf",
+  none: "No accessory",
+};
 
 export function MascotCard() {
-  const q = quotes[new Date().getDay() % quotes.length];
+  const mascotState = useMascotStore((state) => state.state);
+  const accessory = useMascotStore((state) => state.accessory);
+  const level = useXpStore((state) => state.level);
+  const xp = useXpStore((state) => state.xpIntoLevel());
+  const xpForNextLevel = useXpStore((state) => state.xpForNextLevel());
+  const q = quotes[mascotState];
+
   return (
     <div className="glass-card rounded-3xl p-6 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-primary opacity-10" />
@@ -25,11 +41,13 @@ export function MascotCard() {
           <p className="text-base font-semibold mt-1 leading-snug">"{q}"</p>
           <motion.div
             initial={{ width: 0 }}
-            animate={{ width: "60%" }}
+            animate={{ width: `${Math.min(100, (xp / xpForNextLevel) * 100)}%` }}
             transition={{ duration: 1.2 }}
             className="h-1 rounded-full bg-gradient-primary mt-3"
           />
-          <p className="text-[11px] text-muted-foreground mt-2">level 4 · 240 / 500 xp</p>
+          <p className="text-[11px] text-muted-foreground mt-2">
+            level {level} - {xp} / {xpForNextLevel} xp - {accessoryLabel[accessory]}
+          </p>
         </div>
       </div>
     </div>
