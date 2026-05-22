@@ -20,11 +20,17 @@ import {
   type ReminderTiming,
   type Subject,
   useCalendarStore,
+  useFocusTimerStore,
   useMascotStore,
   useNotificationsStore,
   useSubjectsStore,
+  useStudySessionsStore,
+  useTasksStore,
   useXpStore,
+  useRewardsStore,
+  useStreakStore,
 } from "@/stores/yumemo";
+
 
 export const Route = createFileRoute("/settings")({
   component: SettingsPage,
@@ -384,6 +390,47 @@ function SettingsPage() {
 
           <div className="glass-card rounded-3xl p-6 flex items-center justify-between gap-4">
             <div>
+              <h2 className="font-bold">Reset data</h2>
+              <p className="text-xs text-muted-foreground">
+                Clear all tasks, sessions, streaks, XP and settings stored in your browser.
+              </p>
+            </div>
+            <button
+              onClick={() => {
+                if (!confirm("Reset ALL YuMemo data in this browser? This cannot be undone.")) return;
+                // Clears all persisted zustand stores (localStorage keys)
+                try {
+                  if (typeof window !== "undefined") {
+                    // Known zustand persist keys (see `src/stores/yumemo.ts`)
+                    const keys = [
+                      "yumemo:tasks",
+                      "yumemo:calendar",
+                      "yumemo:subjects",
+                      "yumemo:study-sessions",
+                      "yumemo:focus-timer",
+                      "yumemo:mascot",
+                      "yumemo:notifications",
+                      "yumemo:rewards",
+                      "yumemo:streaks",
+                      "yumemo:xp",
+                    ];
+                    keys.forEach((key) => window.localStorage.removeItem(key));
+
+                    window.location.reload();
+                  }
+                } catch {
+                  // no-op; reload will still clear in-memory UI
+                  window.location.reload();
+                }
+              }}
+              className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-destructive/15 text-destructive text-sm font-medium hover:bg-destructive/25 transition-colors"
+            >
+              <Trash2 className="w-4 h-4" /> Reset
+            </button>
+          </div>
+
+          <div className="glass-card rounded-3xl p-6 flex items-center justify-between gap-4">
+            <div>
               <h2 className="font-bold">Account</h2>
               <p className="text-xs text-muted-foreground">Yu - yu@example.com</p>
             </div>
@@ -391,6 +438,7 @@ function SettingsPage() {
               <LogOut className="w-4 h-4" /> Sign out
             </button>
           </div>
+
         </div>
       </div>
     </AppLayout>
