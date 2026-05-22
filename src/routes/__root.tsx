@@ -9,6 +9,8 @@ import {
 } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
+import { useEffect } from "react";
+import { applyTheme, loadThemePrefs } from "@/lib/theme";
 
 function NotFoundComponent() {
   return (
@@ -110,6 +112,11 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+
+  useEffect(() => {
+    const p = loadThemePrefs();
+    applyTheme(p.themeIdx, p.dark);
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
