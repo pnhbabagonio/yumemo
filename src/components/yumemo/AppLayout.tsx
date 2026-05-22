@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "@tanstack/react-router";
-import { Bell, CalendarDays, Home, ListChecks, Search, Timer, Trophy } from "lucide-react";
+import { Bell, CalendarDays, Home, ListChecks, Search, Settings, Timer, Trophy } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { Sidebar } from "./Sidebar";
 import { useNotificationsStore, useTasksStore } from "@/stores/yumemo";
@@ -11,6 +11,7 @@ const mobileNav = [
   { icon: CalendarDays, to: "/calendar" as const },
   { icon: Timer, to: "/focus" as const },
   { icon: Trophy, to: "/rewards" as const },
+  { icon: Settings, to: "/settings" as const },
 ];
 
 export function AppLayout({
@@ -122,15 +123,15 @@ export function AppLayout({
         </footer>
       </main>
 
-      <nav className="lg:hidden fixed bottom-3 left-3 right-3 glass-card rounded-3xl px-3 py-2 flex items-center justify-around z-50">
+      <nav className="lg:hidden fixed bottom-3 left-3 right-3 glass-card rounded-3xl px-2 py-2 flex items-center justify-around z-50">
         {mobileNav.map((it) => (
           <Link
             key={it.to}
             to={it.to}
             activeOptions={{ exact: true }}
-            className="p-3 rounded-2xl text-muted-foreground transition-colors data-[status=active]:bg-gradient-primary data-[status=active]:text-primary-foreground data-[status=active]:shadow-soft"
+            className="p-2.5 rounded-2xl text-muted-foreground transition-colors data-[status=active]:bg-gradient-primary data-[status=active]:text-primary-foreground data-[status=active]:shadow-soft"
           >
-            <it.icon className="w-5 h-5" />
+            <it.icon className="w-[18px] h-[18px]" />
           </Link>
         ))}
       </nav>
