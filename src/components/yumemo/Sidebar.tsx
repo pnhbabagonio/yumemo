@@ -17,12 +17,8 @@ export function Sidebar() {
   return (
     <aside className="hidden lg:flex flex-col gap-2 w-64 p-5 sticky top-0 h-screen">
       <div className="flex items-center gap-2 px-2 py-4">
-        <picture>
-          <source srcSet={logoDark} media="(prefers-color-scheme: dark)" />
-          <img src={logoLight} alt="YuMemo" className="w-11 h-11 block dark:hidden" />
-        </picture>
+        <img src={logoLight} alt="YuMemo" className="w-11 h-11 block dark:hidden" />
         <img src={logoDark} alt="YuMemo" className="w-11 h-11 hidden dark:block" />
-        <img src={logoLight} alt="" aria-hidden className="hidden" />
         <div>
           <h1 className="text-xl font-bold text-gradient leading-none">YuMemo</h1>
           <p className="text-[11px] text-muted-foreground mt-1">plan smarter ෆ</p>
