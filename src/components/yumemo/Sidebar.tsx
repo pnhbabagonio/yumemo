@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { Link } from "@tanstack/react-router";
-import { Home, CalendarDays, ListChecks, Timer, Trophy, Settings, Sparkles } from "lucide-react";
+import { Home, CalendarDays, ListChecks, Timer, Trophy, Settings } from "lucide-react";
+import logoLight from "@/assets/yumemo-logo.png";
+import logoDark from "@/assets/yumemo-logo-dark.png";
 
 const items = [
   { icon: Home, label: "Dashboard", to: "/" as const },
@@ -15,9 +17,12 @@ export function Sidebar() {
   return (
     <aside className="hidden lg:flex flex-col gap-2 w-64 p-5 sticky top-0 h-screen">
       <div className="flex items-center gap-2 px-2 py-4">
-        <div className="w-10 h-10 rounded-2xl bg-gradient-primary grid place-items-center shadow-soft">
-          <Sparkles className="w-5 h-5 text-primary-foreground" />
-        </div>
+        <picture>
+          <source srcSet={logoDark} media="(prefers-color-scheme: dark)" />
+          <img src={logoLight} alt="YuMemo" className="w-11 h-11 block dark:hidden" />
+        </picture>
+        <img src={logoDark} alt="YuMemo" className="w-11 h-11 hidden dark:block" />
+        <img src={logoLight} alt="" aria-hidden className="hidden" />
         <div>
           <h1 className="text-xl font-bold text-gradient leading-none">YuMemo</h1>
           <p className="text-[11px] text-muted-foreground mt-1">plan smarter ෆ</p>
