@@ -401,20 +401,13 @@ function SettingsPage() {
                 // Clears all persisted zustand stores (localStorage keys)
                 try {
                   if (typeof window !== "undefined") {
-                    // Known zustand persist keys (see `src/stores/yumemo.ts`)
-                    const keys = [
-                      "yumemo:tasks",
-                      "yumemo:calendar",
-                      "yumemo:subjects",
-                      "yumemo:study-sessions",
-                      "yumemo:focus-timer",
-                      "yumemo:mascot",
-                      "yumemo:notifications",
-                      "yumemo:rewards",
-                      "yumemo:streaks",
-                      "yumemo:xp",
-                    ];
-                    keys.forEach((key) => window.localStorage.removeItem(key));
+                    // Remove all YuMemo-related persisted data.
+                    // This covers zustand stores (yumemo:*), theme prefs (yumemo:theme, yumemo:dark),
+                    // and prevents missing a newly-added store key.
+                    const keysToRemove = Object.keys(window.localStorage).filter((key) =>
+                      key.startsWith("yumemo:"),
+                    );
+                    keysToRemove.forEach((key) => window.localStorage.removeItem(key));
 
                     window.location.reload();
                   }
