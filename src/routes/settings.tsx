@@ -1,9 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Moon, Sun, Bell, Mail, Smartphone, Palette, LogOut } from "lucide-react";
 import { AppLayout } from "@/components/yumemo/AppLayout";
 import mascot from "@/assets/mascot.png";
+import { themes, applyTheme, loadThemePrefs } from "@/lib/theme";
 
 export const Route = createFileRoute("/settings")({
   component: SettingsPage,
@@ -29,19 +30,22 @@ function Toggle({ on, onChange }: { on: boolean; onChange: (v: boolean) => void 
   );
 }
 
-const themes = [
-  { name: "Sakura", colors: ["oklch(0.86 0.10 350)", "oklch(0.82 0.09 295)", "oklch(0.86 0.09 200)"] },
-  { name: "Mint latte", colors: ["oklch(0.86 0.09 165)", "oklch(0.88 0.08 50)", "oklch(0.86 0.10 350)"] },
-  { name: "Lavender", colors: ["oklch(0.82 0.09 295)", "oklch(0.86 0.09 200)", "oklch(0.86 0.10 350)"] },
-  { name: "Sunset", colors: ["oklch(0.88 0.08 50)", "oklch(0.86 0.10 350)", "oklch(0.82 0.09 295)"] },
-];
-
 function SettingsPage() {
   const [dark, setDark] = useState(false);
   const [push, setPush] = useState(true);
   const [email, setEmail] = useState(true);
   const [sms, setSms] = useState(false);
   const [theme, setTheme] = useState(0);
+
+  useEffect(() => {
+    const p = loadThemePrefs();
+    setTheme(p.themeIdx);
+    setDark(p.dark);
+  }, []);
+
+  useEffect(() => {
+    applyTheme(theme, dark);
+  }, [theme, dark]);
 
   return (
     <AppLayout title="Settings" subtitle="Make YuMemo yours">
