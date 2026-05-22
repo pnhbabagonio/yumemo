@@ -762,7 +762,7 @@ export const useRewardsStore = create<RewardsState>()(
 
 type MascotStateStore = {
   state: MascotState;
-  colorVariant: "sakura" | "mint" | "lavender" | "sunset";
+  colorVariant: "original" | "sakura" | "mint" | "lavender" | "sunset";
   accessory: "ribbon" | "glasses" | "scarf" | "none";
   lastInteractionAt: string;
   setState: (state: MascotState) => void;
@@ -775,7 +775,7 @@ export const useMascotStore = create<MascotStateStore>()(
   persist(
     (set) => ({
       state: "idle",
-      colorVariant: "sakura",
+      colorVariant: "original",
       accessory: "ribbon",
       lastInteractionAt: new Date().toISOString(),
       setState: (state) => set({ state, lastInteractionAt: new Date().toISOString() }),

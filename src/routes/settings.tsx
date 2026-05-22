@@ -14,8 +14,20 @@ import {
   Trash2,
 } from "lucide-react";
 import { AppLayout } from "@/components/yumemo/AppLayout";
-import mascot from "@/assets/mascot.png";
+import mascotOriginal from "@/assets/mascot.png";
+import mascotSakura from "@/assets/mascot-sakura.png";
+import mascotMint from "@/assets/mascot-mint.png";
+import mascotLavender from "@/assets/mascot-lavender.png";
+import mascotSunset from "@/assets/mascot-sunset.png";
 import { applyTheme, loadThemePrefs, themes } from "@/lib/theme";
+
+const mascotImages = {
+  original: mascotOriginal,
+  sakura: mascotSakura,
+  mint: mascotMint,
+  lavender: mascotLavender,
+  sunset: mascotSunset,
+};
 import {
   type ReminderTiming,
   type Subject,
@@ -158,11 +170,11 @@ function SettingsPage() {
           className="glass-card rounded-3xl p-6 text-center"
         >
           <img
-            src={mascot}
+            src={mascotImages[mascotState.colorVariant]}
             alt="Yu mascot"
             width={120}
             height={120}
-            className="w-28 h-28 mx-auto animate-float"
+            className="w-28 h-28 mx-auto animate-float object-contain"
           />
           <h2 className="text-xl font-bold mt-3">Yu</h2>
           <p className="text-xs text-muted-foreground">Cat - Level {level}</p>
@@ -172,7 +184,7 @@ function SettingsPage() {
                 Color
               </p>
               <div className="grid grid-cols-2 gap-2">
-                {(["sakura", "mint", "lavender", "sunset"] as const).map((variant) => (
+                {(["original", "sakura", "mint", "lavender", "sunset"] as const).map((variant) => (
                   <button
                     key={variant}
                     onClick={() => setAppearance({ colorVariant: variant })}

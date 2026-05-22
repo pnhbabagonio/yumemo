@@ -1,6 +1,18 @@
 import { motion } from "framer-motion";
-import mascot from "@/assets/mascot.png";
+import mascotOriginal from "@/assets/mascot.png";
+import mascotSakura from "@/assets/mascot-sakura.png";
+import mascotMint from "@/assets/mascot-mint.png";
+import mascotLavender from "@/assets/mascot-lavender.png";
+import mascotSunset from "@/assets/mascot-sunset.png";
 import { useMascotStore, useXpStore } from "@/stores/yumemo";
+
+const mascotImages = {
+  original: mascotOriginal,
+  sakura: mascotSakura,
+  mint: mascotMint,
+  lavender: mascotLavender,
+  sunset: mascotSunset,
+};
 
 const quotes = {
   idle: "You're doing great. Take a breath.",
@@ -19,6 +31,7 @@ const accessoryLabel = {
 
 export function MascotCard() {
   const mascotState = useMascotStore((state) => state.state);
+  const colorVariant = useMascotStore((state) => state.colorVariant);
   const accessory = useMascotStore((state) => state.accessory);
   const level = useXpStore((state) => state.level);
   const xp = useXpStore((state) => state.xpIntoLevel());
@@ -30,11 +43,11 @@ export function MascotCard() {
       <div className="absolute inset-0 bg-gradient-primary opacity-10" />
       <div className="relative flex items-center gap-4">
         <motion.img
-          src={mascot}
+          src={mascotImages[colorVariant]}
           alt="YuMemo cat mascot"
           width={96}
           height={96}
-          className="w-24 h-24 drop-shadow-xl animate-float"
+          className="w-24 h-24 drop-shadow-xl animate-float object-contain"
         />
         <div>
           <p className="text-xs uppercase tracking-widest text-muted-foreground">Yu says</p>
